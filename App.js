@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import ApiView from './ApiView';
 import axios from 'axios';
+
 //import styles from './ApiStyles';
+axios.defaults.headers.common['Cache-Control'] = 'no-cache';
+axios.defaults.headers.common['Pragma'] = 'no-cache';
+
 import {
   StyleSheet,
   View,
@@ -39,6 +43,7 @@ class ApiContainer extends Component {
       })
       .catch(error => console.log(error))
   }
+
   goForAxios = () => {
     this.setState({
       fromFetch: false,
@@ -47,6 +52,7 @@ class ApiContainer extends Component {
     })
     axios.get("https://seancoughlin.me/affirmations/affirmations-alpha.json")
       .then(response => {
+        console.log("headers", axios.defaults.headers);
         console.log('getting data from axios', response.data);
         this.setState({
           loading: false,
