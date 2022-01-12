@@ -20,35 +20,14 @@ class ApiContainer extends Component {
     super(props);
     this.state = {
       loading: false,
-      fromFetch: false,
       fromAxios: false,
       dataSource: [],
       axiosData: null
     };
   }
-  goForFetch = () => {
-    this.setState({
-      fromFetch: true,
-      loading: true,
-
-    })
-    fetch("https://seancoughlin.me/affirmations/affirmations-alpha.json")
-      .then(response => response.json())
-      .then((responseJson) => {
-        console.log('getting data from fetch', responseJson)
-        this.setState({
-          loading: false,
-          dataSource: responseJson
-        })
-      })
-      .catch(error => console.log(error))
-  }
-
   goForAxios = () => {
     this.setState({
-      fromFetch: false,
       loading: true,
-
     })
     axios.get("https://seancoughlin.me/affirmations/affirmations-alpha.json")
       .then(response => {
@@ -85,14 +64,12 @@ class ApiContainer extends Component {
 
 
   render() {
-    const { dataSource, fromFetch, fromAxios, loading, axiosData } = this.state
+    const { dataSource, fromAxios, loading, axiosData } = this.state
     return (
       <ApiView
-        goForFetch={this.goForFetch}
         goForAxios={this.goForAxios}
         dataSource={dataSource}
         loading={loading}
-        fromFetch={fromFetch}
         fromAxios={fromAxios}
         axiosData={axiosData}
         FlatListSeparator={this.FlatListSeparator}
