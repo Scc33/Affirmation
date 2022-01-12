@@ -28,7 +28,7 @@ class ApiContainer extends Component {
       loading: true,
 
     })
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://seancoughlin.me/affirmations/affirmations-alpha.json")
       .then(response => response.json())
       .then((responseJson) => {
         console.log('getting data from fetch', responseJson)
@@ -45,7 +45,7 @@ class ApiContainer extends Component {
       loading: true,
 
     })
-    axios.get("https://jsonplaceholder.typicode.com/users")
+    axios.get("https://seancoughlin.me/affirmations/affirmations-alpha.json")
       .then(response => {
         console.log('getting data from axios', response.data);
         this.setState({
@@ -70,9 +70,9 @@ class ApiContainer extends Component {
   renderItem = (data) => {
     return (
       <TouchableOpacity>
-        <Text>{data.item.name}</Text>
-        <Text>{data.item.email}</Text>
-        <Text>{data.item.company.name}</Text></TouchableOpacity>
+        <Text>{data.item.author}</Text>
+        <Text>{data.item.affirmation}</Text>
+        </TouchableOpacity>
     )
 
   }
