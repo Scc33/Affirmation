@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 class ModalView extends Component {
     state = {
@@ -12,31 +13,30 @@ class ModalView extends Component {
 
     render() {
         const { modalVisible } = this.state;
+        const config = {
+            velocityThreshold: 0.3,
+            directionalOffsetThreshold: 80
+          };
         return (
             <View>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        this.setModalVisible(!modalVisible);
-                    }}
+                <GestureRecognizer
+                    style={{ flex: 1 }}
+                    onSwipeDown={() => this.setModalVisible(!modalVisible)}
+                    config={config}
                 >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Hello World!</Text>
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => this.setModalVisible(!modalVisible)}
-                            >
-                                <Text style={styles.textStyle}>Hide Modal</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </Modal>
+                    <Modal
+                        animationType="slide"
+                        swipeDirections="down"
+                        presentationStyle="formSheet"
+                        visible={modalVisible}
+                    >
+                        <Text>Swipe Down Please</Text>
+                    </Modal>
+                    <Text>Swipe Up Please</Text>
+                </GestureRecognizer>
+             
                 <Pressable
-                    style={[styles.button, styles.buttonOpen]}
+                    style={[styles.settingsLocation, styles.button, styles.buttonOpen]}
                     onPress={() => this.setModalVisible(true)}
                 >
                     <Text style={styles.textStyle}>Show Modal</Text>
@@ -47,18 +47,13 @@ class ModalView extends Component {
 }
 
 const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
     modalView: {
-        margin: 20,
+        margin: 50,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
+        padding: 20,
+        justifyContent: "center",
+        alignItems: "flex-start",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -67,6 +62,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
+    },
+    settingsLocation: {
+        alignSelf: 'flex-end',
     },
     button: {
         borderRadius: 20,

@@ -9,7 +9,8 @@ import {
   ActivityIndicator,
   FlatList,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 
 axios.defaults.headers.common['Cache-Control'] = 'no-cache';
@@ -69,9 +70,10 @@ class ApiContainer extends Component {
   render() {
     const { fromAxios, loading, axiosData } = this.state
     return (
-      <View style={styles.centeredView}>
+      <SafeAreaView style={styles.margin}>
         <ModalView />
         <ApiView
+          style={styles.centeredView}
           goForAxios={this.goForAxios}
           loading={loading}
           fromAxios={fromAxios}
@@ -79,17 +81,20 @@ class ApiContainer extends Component {
           FlatListSeparator={this.FlatListSeparator}
           renderItem={this.renderItem}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  margin: {
+    margin: 10
+  },
   centeredView: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 22
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
   },
 });
 
