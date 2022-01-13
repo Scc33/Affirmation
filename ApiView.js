@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 import { View, Text, Button, FlatList, ActivityIndicator } from 'react-native';
-//import styles from './ApiStyles';
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
 const ApiView = (props) => {
-    const { goForAxios, fromAxios, axiosData, renderItem, FlatListItemSeparator, dataSource, loading } = props
+    const { goForAxios, axiosData, renderItem, FlatListItemSeparator, loading } = props
     return (
-        <View>
-            <View style={{ margin: 18 }}>
+        <View style={{ margin: 30 }}>
+            <View style={{ margin: 30 }}>
                 <Button
-                    title={'Click using axios'}
+                    title={'Affirmation'}
                     onPress={goForAxios}
                     color='green'
                 />
             </View>
 
-            <FlatList
-                data={axiosData}
-                ItemSeparatorComponent={FlatListItemSeparator}
-                renderItem={item => renderItem(item)}
-                keyExtractor={item => item.id.toString()}
-            />
+            <Text>{axiosData && axiosData.length > 0 ? axiosData[getRandomInt(axiosData.length)].affirmation : ""}</Text>
 
             {loading &&
                 <View>

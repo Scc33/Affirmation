@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ApiView from './ApiView';
 import axios from 'axios';
 
-//import styles from './ApiStyles';
 axios.defaults.headers.common['Cache-Control'] = 'no-cache';
 axios.defaults.headers.common['Pragma'] = 'no-cache';
 
@@ -21,10 +20,10 @@ class ApiContainer extends Component {
     this.state = {
       loading: false,
       fromAxios: false,
-      dataSource: [],
       axiosData: null
     };
   }
+
   goForAxios = () => {
     this.setState({
       loading: true,
@@ -42,20 +41,21 @@ class ApiContainer extends Component {
         console.log(error);
       });
   }
+
   FlatListSeparator = () => {
     return (
       <View style={{
-        height: .5,
+        height: 5,
         width: "100%",
         backgroundColor: "rgba(0,0,0,0.5)",
       }}
       />
     );
   }
+
   renderItem = (data) => {
     return (
       <TouchableOpacity>
-        <Text>{data.item.author}</Text>
         <Text>{data.item.affirmation}</Text>
         </TouchableOpacity>
     )
@@ -64,11 +64,10 @@ class ApiContainer extends Component {
 
 
   render() {
-    const { dataSource, fromAxios, loading, axiosData } = this.state
+    const { fromAxios, loading, axiosData } = this.state
     return (
       <ApiView
         goForAxios={this.goForAxios}
-        dataSource={dataSource}
         loading={loading}
         fromAxios={fromAxios}
         axiosData={axiosData}
