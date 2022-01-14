@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import { ArrowUpCircle } from "react-native-feather";
 
 class ModalView extends Component {
     state = {
@@ -16,9 +17,10 @@ class ModalView extends Component {
         const config = {
             velocityThreshold: 0.3,
             directionalOffsetThreshold: 80
-          };
+        };
         return (
             <View>
+                <ArrowUpCircle />
                 <GestureRecognizer
                     style={{ flex: 1 }}
                     onSwipeDown={() => this.setModalVisible(!modalVisible)}
@@ -34,7 +36,7 @@ class ModalView extends Component {
                     </Modal>
                     <Text>Swipe Up Please</Text>
                 </GestureRecognizer>
-             
+
                 <Pressable
                     style={[styles.settingsLocation, styles.button, styles.buttonOpen]}
                     onPress={() => this.setModalVisible(true)}
