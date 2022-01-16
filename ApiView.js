@@ -3,7 +3,7 @@ import { View, Text, Button, FlatList, ActivityIndicator } from 'react-native';
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-  }
+}
 
 const ApiView = (props) => {
     const { goForAxios, axiosData, renderItem, FlatListItemSeparator, loading } = props

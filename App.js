@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import ApiView from './ApiView';
+import ModalView from './ModalView';
 import axios from 'axios';
-
-axios.defaults.headers.common['Cache-Control'] = 'no-cache';
-axios.defaults.headers.common['Pragma'] = 'no-cache';
 
 import {
   StyleSheet,
@@ -11,8 +9,14 @@ import {
   ActivityIndicator,
   FlatList,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
+
+axios.defaults.headers.common['Cache-Control'] = 'no-cache';
+axios.defaults.headers.common['Pragma'] = 'no-cache';
+
+
 
 class ApiContainer extends Component {
   constructor(props) {
@@ -57,7 +61,7 @@ class ApiContainer extends Component {
     return (
       <TouchableOpacity>
         <Text>{data.item.affirmation}</Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
     )
 
   }
@@ -66,16 +70,32 @@ class ApiContainer extends Component {
   render() {
     const { fromAxios, loading, axiosData } = this.state
     return (
-      <ApiView
-        goForAxios={this.goForAxios}
-        loading={loading}
-        fromAxios={fromAxios}
-        axiosData={axiosData}
-        FlatListSeparator={this.FlatListSeparator}
-        renderItem={this.renderItem}
-      />
+      <SafeAreaView style={styles.margin}>
+        <ModalView />
+        <ApiView
+          style={styles.centeredView}
+          goForAxios={this.goForAxios}
+          loading={loading}
+          fromAxios={fromAxios}
+          axiosData={axiosData}
+          FlatListSeparator={this.FlatListSeparator}
+          renderItem={this.renderItem}
+        />
+      </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  margin: {
+    margin: 10
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+});
 
 export default ApiContainer;
