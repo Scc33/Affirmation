@@ -32,7 +32,7 @@ class ApiContainer extends Component {
     this.setState({
       loading: true,
     })
-    axios.get("https://seancoughlin.me/affirmations/affirmations-alpha.json")
+    axios.get("https://api.seancoughlin.me/affirmations/affirmations-alpha.json")
       .then(response => {
         console.log("headers", axios.defaults.headers);
         console.log('getting data from axios', response.data);
